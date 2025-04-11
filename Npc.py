@@ -45,3 +45,35 @@ class NPC(pygame.sprite.Sprite):
         if self.path == "west":
             self.rect.move_ip(-self.move_distance, 0)
             self.position[0] += self.move_distance
+
+class Good_NPC(NPC):
+    def __init__(self, screen_size):
+        super().__init__(screen_size)
+
+
+class Bad_NPC(NPC):
+    def __init__(self, screen_size):
+        super().__init__(screen_size)
+        self.surf = pygame.image.load('images/whiskers.png').convert_alpha()
+        self.rect = self.surf.get_rect()
+
+    def movement(self):
+        """
+                Moves the NPC around.
+
+                :return: None
+                """
+        if self.path == "north":
+            self.rect.move_ip(5, -self.move_distance)
+            self.position[1] -= self.move_distance
+        elif self.path == "south":
+            self.rect.move_ip(5, self.move_distance)
+            self.position[1] += self.move_distance
+        if self.path == "east":
+            self.rect.move_ip(self.move_distance, 5)
+            self.position[0] -= self.move_distance
+        if self.path == "west":
+            self.rect.move_ip(-self.move_distance, 5)
+            self.position[0] += self.move_distance
+
+        self.get_direction()
