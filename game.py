@@ -7,11 +7,13 @@
 ######################################################################
 # Acknowledgements:
 #
-# Dr.Scoot Hagen
+# Dr.Scott Heggen
 ####################################################################################
 
 import pygame
 from Npc import NPC
+from character import Character
+from GUI import MyTkinterApp
 
 class Game:
     def __init__(self):
