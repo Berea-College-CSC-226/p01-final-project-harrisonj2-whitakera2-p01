@@ -26,14 +26,14 @@
   
 ![Don't leave me in your README!](image/crc.png "Image of CRC card as an example. Upload your CRC card(s) in place of this one. ")
 
-❗️**Branches**: This project will **require** effective use of git. 
+**Branches**: This project will **require** effective use of git. 
 
 Each partner should create a branch at the beginning of the project, and stay on this branch (or branches of their 
 branch) as they work. When you need to bring each others branches together, do so by merging each other's branches 
 into your own, following the process we've discussed in previous assignments, then re-branching out from the merged code.  
 
 ```
-    Branch 1 starting name: Harrisonj2  
+    Branch 1 starting name: Jairus  
     Branch 2 starting name: whitakera2  
 ```
 
