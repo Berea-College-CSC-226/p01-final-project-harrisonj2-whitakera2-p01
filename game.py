@@ -21,10 +21,12 @@ class Game:
         self.running = True
         pygame.init()
         game_display = pygame.display.set_mode(self.size)
-        bg_image = pygame.image.load('Starter.jpg')
+        bg_image = pygame.image.load('image/Starter.jpg')
         self.clock = pygame.time.Clock()
         game_display.blit(bg_image, (0, 0))
         pygame.display.update()
+        self.pLayer = Character(self.size)
+        self.npc = NPC(self.size)
 
 
     def run(self):
