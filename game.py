@@ -34,6 +34,11 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
+            #self.player.movement(pygame.key.get_pressed())
+            self.npc.movement()
+           # self.screen.blit(self.player.surf, self.player.rect)
+            self.screen.blit(self.npc.surf, self.npc.rect)
+        pygame.display.update()
 
 
 def main():
