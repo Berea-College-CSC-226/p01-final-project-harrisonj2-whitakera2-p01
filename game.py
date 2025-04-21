@@ -30,17 +30,17 @@ class Game:
 
 
     def run(self):
-        while self.running:
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    self.running = False
             self.player.movement(pygame.key.get_pressed())
             #self.npc.movement()
             self.game_display.blit(self.bg_image, (0, 0))
             self.game_display.blit(self.player.surf, self.player.rect)
             #self.game_display.blit(self.npc.surf, self.npc.rect)
-        pygame.display.update()
-        self.clock.tick(24)
+            pygame.display.update()
+            self.clock.tick(24)
+            while self.running:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        self.running = False
 
 
 
