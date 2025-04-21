@@ -17,11 +17,11 @@ from GUI import MyTkinterApp
 
 class Game:
     def __init__(self):
-        self.size = 276, 272
+        self.size = 600,600
         self.running = True
         pygame.init()
         self.game_display = pygame.display.set_mode(self.size)
-        self.bg_image = pygame.image.load('image/Starter.jpg')
+        self.bg_image = pygame.image.load('image/resized_image_600x600.png')
         self.clock = pygame.time.Clock()
         self.game_display.blit(self.bg_image, (0, 0))
         pygame.display.update()
