@@ -17,16 +17,16 @@ from GUI import MyTkinterApp
 
 class Game:
     def __init__(self):
-        self.size = 272, 276
+        self.size = 276, 272
         self.running = True
         pygame.init()
-        game_display = pygame.display.set_mode(self.size)
-        bg_image = pygame.image.load('image/Starter.jpg')
+        self.game_display = pygame.display.set_mode(self.size)
+        self.bg_image = pygame.image.load('image/Starter.jpg')
         self.clock = pygame.time.Clock()
-        game_display.blit(bg_image, (0, 0))
+        self.game_display.blit(self.bg_image, (0, 0))
         pygame.display.update()
-        self.pLayer = Character(self.size)
-        self.npc = NPC(self.size)
+        self.player = Character(self.size)
+        #self.npc = NPC(self.size)
 
 
     def run(self):
@@ -34,17 +34,21 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.running = False
-            #self.player.movement(pygame.key.get_pressed())
-            self.npc.movement()
-           # self.screen.blit(self.player.surf, self.player.rect)
-            self.screen.blit(self.npc.surf, self.npc.rect)
+            self.player.movement(pygame.key.get_pressed())
+            #self.npc.movement()
+            self.game_display.blit(self.bg_image, (0, 0))
+            self.game_display.blit(self.player.surf, self.player.rect)
+            #self.game_display.blit(self.npc.surf, self.npc.rect)
         pygame.display.update()
+        self.clock.tick(24)
+
 
 
 def main():
 
     game = Game()
     game.run()
+
 
 if __name__ == "__main__":
     main()
