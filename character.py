@@ -21,7 +21,7 @@ class Character(pygame.sprite.Sprite):
         """
         super().__init__()
         self.screen_size = screen_size
-        self.surf = pygame.image.load("image/player.png").convert_alpha() #image goes here in quotes
+        self.surf = pygame.image.load("image/player_resized.png").convert_alpha() #image goes here in quotes
         self.surf.set_colorkey((255, 255, 255), pygame.RLEACCEL)
         self.rect = self.surf.get_rect()
         self.rect.move_ip(self.screen_size[0]//2, self.screen_size[1]//2)
@@ -35,10 +35,10 @@ class Character(pygame.sprite.Sprite):
         :return: None
         """
         if keys[pygame.K_UP]:
-            self.rect.move_ip(0, -3)
+            self.rect.move_ip(0, -7)
         elif keys[pygame.K_DOWN]:
-            self.rect.move_ip(0, 3)
+            self.rect.move_ip(0, 7)
         if keys[pygame.K_RIGHT]:
-            self.rect.move_ip(3, 0)
+            self.rect.move_ip(7, 0)
         elif keys[pygame.K_LEFT]:
-            self.rect.move_ip(-3, 0)
+            self.rect.move_ip(-7, 0)
