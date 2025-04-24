@@ -1,5 +1,5 @@
 ######################################################################
-# Author: Jairus Harrison, Aaron, Whitaker
+# Author: Jairus V. Harrison, Aaron, Whitaker
 # Username: harrisonj2, whitakera2
 #
 # Assignment: p01-final-project

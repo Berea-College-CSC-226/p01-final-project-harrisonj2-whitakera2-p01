@@ -35,7 +35,7 @@ class Character(pygame.sprite.Sprite):
         Handles up, down, left, right movement events from the user
 
         :param keys: key presses from pygame event listener
-        :return: None
+        :return: None none
         """
         if keys[pygame.K_LEFT]:
                 self.rect.x -= self.speed
