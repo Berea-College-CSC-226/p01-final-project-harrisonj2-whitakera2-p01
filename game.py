@@ -20,6 +20,8 @@ class Game:
     def __init__(self):
         self.size = 600,600
         self.running = True
+        self.screen_height = 600
+        self.screen_width = 600
         pygame.init()
         self.game_display = pygame.display.set_mode(self.size)
         self.bg_image = pygame.image.load('image/resized_image_600x600.png')
