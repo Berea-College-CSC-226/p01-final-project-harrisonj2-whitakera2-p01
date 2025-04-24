@@ -74,6 +74,7 @@ class MyTkinterApp:
 
         :return: None
         """
+
         #txt = self.myTextBox1.get()                 # Retrieves the text entered by the user                             # increments each time the handler is called (button is pressed)
         # message = "Hey,{0} click it again!\nYou have clicked the button so many times.".format(txt)
         # self.myTextLabel1Text.set(message)
