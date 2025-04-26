@@ -9,11 +9,11 @@
 #
 # Dr.Scott Heggen
 ####################################################################################
+from enum import nonmember
 
 import pygame
 from Npc import Good_NPC
 from character import Character
-from GUI import MyTkinterApp
 import random
 
 class Game:
@@ -57,13 +57,6 @@ class Game:
         return names
 
 def main():
-
-    # myGUI = MyTkinterApp("CSC226 Hello GUI")  # Create a new myTkinter object
-    # myGUI.create_label1()  # Create a label to writing text into (empty for now)
-    # myGUI.create_textbox1()  # Calls the create textbox method for capturing user input
-    # myGUI.create_button1("Begin")
-    # myGUI.create_label2()
-    # myGUI.root.mainloop()  # Needed to start the event loop
 
     game = Game()
     game.run()
