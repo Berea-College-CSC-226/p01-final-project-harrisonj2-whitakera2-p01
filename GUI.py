@@ -10,6 +10,7 @@
 #
 ####################################################################################
 import tkinter as tk
+from game import Game #game is called from this file
 
 class MyTkinterApp:
     def __init__(self, windowtext="Exploring Tkinter"):
@@ -19,8 +20,8 @@ class MyTkinterApp:
         :param windowtext: The text at the top of the window title
         """
         self.root = tk.Tk()                         # Create the root window where all widgets go
-        self.root.minsize(width=250, height=250)    # Sets the window's minimum size
-        self.root.maxsize(width=250, height=250)    # Sets the window's maximum size
+        self.root.minsize(width=250, height=300)    # Sets the window's minimum size
+        self.root.maxsize(width=250, height=300)    # Sets the window's maximum size
         self.root.title(windowtext)                 # Sets root window title
 
         self.myButton1 = None
@@ -51,7 +52,8 @@ class MyTkinterApp:
         :return: None
         """
         txt = self.myTextBox1.get()                 # Retrieves the text entered by the user                             # increments each time the handler is called (button is pressed)
-        message = "Hey,{0}!\n(Insert rules of the game here)".format(txt)
+        message = ("\nHey,{0}!\n\nIn this game you are stuck in a cave\nand your goal is to get out.\nYou may find things that are out"
+                   " to kill you\nbut as long as it's not anyhting\ntoo big you should be able to kill it.\n\nGood luck!\n").format(txt)
         self.myTextLabel2Text.set(message)
         if self.myButton2 == None:
             self.create_button2("Start Game")
@@ -69,15 +71,12 @@ class MyTkinterApp:
 
     def button2_handler(self):
         """
-        Event handler for myButton1 above.
-        Gets the text from the textbox and writes in myTextLabel1
-
+        Event handler for myButton2 above.
+        Starts game from game file
         :return: None
         """
-
-        #txt = self.myTextBox1.get()                 # Retrieves the text entered by the user                             # increments each time the handler is called (button is pressed)
-        # message = "Hey,{0} click it again!\nYou have clicked the button so many times.".format(txt)
-        # self.myTextLabel1Text.set(message)
+        game = Game()
+        game.run()
 
     def create_textbox1(self):
         """
@@ -118,7 +117,7 @@ class MyTkinterApp:
         # self.myTextLabel2Text.set(message2)
 
 
-def main():
+def gui():
     """
     Creates GUI and uses button, textbox and label GUI widgets
 
@@ -130,8 +129,10 @@ def main():
     myGUI.create_textbox1()                         # Calls the create textbox method for capturing user input
     myGUI.create_button1("Begin")
     myGUI.create_label2()
-    myGUI.root.mainloop()                           # Needed to start the event loop
+    myGUI.root.mainloop()   # Needed to start the event loop
 
+def main():
+    gui()
 
 if __name__ == "__main__":
     main()
