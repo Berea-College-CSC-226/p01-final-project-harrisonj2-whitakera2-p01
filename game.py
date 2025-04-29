@@ -11,7 +11,7 @@
 ####################################################################################
 
 import pygame
-from Npc import Good_NPC
+from Npc import Good_NPC, Bad_NPC
 from character import Character
 from GUI import MyTkinterApp
 import random
@@ -30,6 +30,10 @@ class Game:
         pygame.display.update()
         self.player = Character(self.size)
         self.good_npc = self.spawn_npc(5)
+        self.bad_npc = Bad_NPC(self.size)
+
+
+
 
 
     def run(self):
@@ -38,12 +42,18 @@ class Game:
                 if event.type == pygame.QUIT:
                     self.running = False
             self.player.movement(pygame.key.get_pressed())
+
             for npc in self.good_npc:
                 npc.movement()
+
             self.game_display.blit(self.bg_image, (0, 0))
             self.game_display.blit(self.player.surf, self.player.rect)
+
             for npc in self.good_npc:
                 self.game_display.blit(npc.surf, npc.rect)
+
+            self.game_display.blit(self.bad_npc.surf, self.bad_npc.rect)
+
             pygame.display.update()
             self.clock.tick(24)
 

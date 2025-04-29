@@ -10,7 +10,7 @@
 #
 ####################################################################################
 
-import pygame,random
+import pygame,random,math
 
 class NPC(pygame.sprite.Sprite):
     move_distance = 10
@@ -68,6 +68,8 @@ class NPC(pygame.sprite.Sprite):
             self.rect.move_ip(-self.move_distance, 0)
             self.position[0] += self.move_distance
 
+        self.get_direction()
+
 class Good_NPC(NPC):
     def __init__(self, screen_size):
         super().__init__(screen_size)
@@ -76,26 +78,23 @@ class Good_NPC(NPC):
 class Bad_NPC(NPC):
     def __init__(self, screen_size):
         super().__init__(screen_size)
-        self.surf = pygame.image.load('images/Monster.png').convert_alpha()
+        self.surf = pygame.image.load('image/Monster.png').convert_alpha()
         self.rect = self.surf.get_rect()
 
-    def movement(self):
+    def movement(self, player_position):
         """
-                Moves the NPC around.
+        Moves the NPC toward the player.
 
-                :return: None
-                """
-        if self.path == "north":
-            self.rect.move_ip(5, -self.move_distance)
-            self.position[1] -= self.move_distance
-        elif self.path == "south":
-            self.rect.move_ip(5, self.move_distance)
-            self.position[1] += self.move_distance
-        if self.path == "east":
-            self.rect.move_ip(self.move_distance, 5)
-            self.position[0] -= self.move_distance
-        if self.path == "west":
-            self.rect.move_ip(-self.move_distance, 5)
-            self.position[0] += self.move_distance
+        :param player_position: Tuple (x, y) of the player's current position
+        :return: None
+        """
+        dx = player_position[0] - self.rect.centerx
+        dy = player_position[1] - self.rect.centery
+        distance = math.hypot(dx, dy)
 
-        self.get_direction()
+        chase_radius = 200
+
+        if distance < chase_radius and distance != 0:
+            dx /= distance
+            dy /= distance
+            self.rect.move_ip(dx * self.move_distance, dy * self.move_distance)
