@@ -39,11 +39,11 @@ class Character(pygame.sprite.Sprite):
         """
         if keys[pygame.K_LEFT]:
             self.rect.x -= self.speed
-            self.surf = pygame.image.load("image/player_resized.png").convert_alpha()  # image goes here in quotes
+            self.surf = pygame.image.load("image/left.png").convert_alpha()  # image goes here in quotes
             self.surf.set_colorkey((255, 255, 255), pygame.RLEACCEL)
         if keys[pygame.K_RIGHT]:
             self.rect.x += self.speed
-            self.surf = pygame.image.load("image/player.png").convert_alpha()  # image goes here in quotes
+            self.surf = pygame.image.load("image/right.png").convert_alpha()  # image goes here in quotes
             self.surf.set_colorkey((255, 255, 255), pygame.RLEACCEL)
         if keys[pygame.K_UP]:
             self.rect.y -= self.speed
@@ -51,7 +51,7 @@ class Character(pygame.sprite.Sprite):
             self.surf.set_colorkey((255, 255, 255), pygame.RLEACCEL)
         if keys[pygame.K_DOWN]:
             self.rect.y += self.speed
-            self.surf = pygame.image.load("image/player.png").convert_alpha()  # image goes here in quotes
+            self.surf = pygame.image.load("image/downward.png").convert_alpha()  # image goes here in quotes
             self.surf.set_colorkey((255, 255, 255), pygame.RLEACCEL)
 
             # Border collision
