@@ -9,12 +9,12 @@
 #
 # Dr.Scott Heggen
 ####################################################################################
-from enum import nonmember
 
 import pygame
 from Npc import Good_NPC, Bad_NPC
 from character import Character
 import random
+from door import Door
 
 class Game:
     def __init__(self):
@@ -30,13 +30,12 @@ class Game:
         pygame.display.update()
         self.player = Character(self.size)
         self.good_npc = pygame.sprite.Group()  # Create the group first
-        self.spawn_npc(5)
         self.bad_npc = Bad_NPC(self.size)
         self.text_shown_time = None  # To track when the text was shown
         self.text_displayed = False
-
-
-
+        self.doors = pygame.sprite.Group()
+        self.current_room = 1
+        self.load_room_background()
 
 
     def run(self):
@@ -52,10 +51,11 @@ class Game:
             self.game_display.blit(self.bg_image, (0, 0))
             self.game_display.blit(self.player.surf, self.player.rect)
 
+
             for npc in self.good_npc:
                 self.game_display.blit(npc.surf, npc.rect)
 
-            self.game_display.blit(self.bad_npc.surf, self.bad_npc.rect)
+            #self.game_display.blit(self.bad_npc.surf, self.bad_npc.rect)
 
             # Check for collision
             if pygame.sprite.spritecollide(self.player, self.good_npc, True) and not self.text_displayed:
@@ -74,6 +74,18 @@ class Game:
                 if pygame.time.get_ticks() - self.text_shown_time > 3000:  # 3000 milliseconds = 3 seconds
                     self.text_displayed = False
 
+            for door in self.doors:
+                pygame.draw.rect(self.game_display, (255, 0, 0), door.rect, 2)
+
+            # Check for collisions with any door
+            for door in self.doors:
+                if self.player.rect.colliderect(door.rect):
+
+                    self.current_room = door.destination_room
+                    self.load_room_background()
+                    self.player.rect.topleft = (260, 440)
+                    break
+
             pygame.display.update()
             self.clock.tick(24)
 
@@ -82,9 +94,30 @@ class Game:
             npc = Good_NPC(self.size)
             npc.rect.topleft = (
                 random.randint(0, self.size[0] - npc.rect.width),
-                random.randint(0, self.size[1] - npc.rect.height)
-            )
+                random.randint(0, self.size[1] - npc.rect.height))
             self.good_npc.add(npc)
+
+    def load_room_background(self):
+
+        self.doors.empty()
+        self.good_npc.empty()
+
+        # Load room background and NPCs
+        if self.current_room == 1:
+            self.bg_image = pygame.image.load('image/resized_image_600x600.png')
+            self.doors.add(Door((290, 90), (20, 20), 2))
+            self.spawn_npc(3)
+
+        elif self.current_room == 2:
+            self.bg_image = pygame.image.load('image/crc.png')
+            self.doors.add(Door((10, 10), (20, 20), 1))
+            self.doors.add(Door((550, 10), (20, 20), 3))
+            self.spawn_npc(2)
+
+        elif self.current_room == 3:
+            self.bg_image = pygame.image.load('image/Monster.png')
+            self.doors.add(Door((290, 500), (20, 20), 2))
+            self.spawn_npc(1)
 
 
 def main():
