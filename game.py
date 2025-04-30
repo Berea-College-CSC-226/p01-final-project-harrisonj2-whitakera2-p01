@@ -57,7 +57,7 @@ class Game:
 
             #self.game_display.blit(self.bad_npc.surf, self.bad_npc.rect)
 
-            # Check for collision
+            # Check for collisions
             if pygame.sprite.spritecollide(self.player, self.good_npc, True) and not self.text_displayed:
                 # Start showing the text
                 self.text_shown_time = pygame.time.get_ticks()  # Capture the time when collision happens
