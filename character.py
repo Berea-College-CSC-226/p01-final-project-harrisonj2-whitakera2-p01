@@ -21,13 +21,13 @@ class Character(pygame.sprite.Sprite):
         """
         super().__init__()
         self.screen_size = screen_size
-        self.surf = pygame.image.load("image/player.png").convert_alpha() #image goes here in quotes
+        self.surf = pygame.image.load("image/up.png").convert_alpha() #image goes here in quotes
         self.surf.set_colorkey((255, 255, 255), pygame.RLEACCEL)
         self.rect = self.surf.get_rect()
         self.rect.move_ip(self.screen_size[0]//2, self.screen_size[1]//2)
         self.screen_height = 600
         self.screen_width = 600
-        self.speed = 5
+        self.speed = 5.8
 
 
     def movement(self, keys):
@@ -38,13 +38,21 @@ class Character(pygame.sprite.Sprite):
         :return: None none
         """
         if keys[pygame.K_LEFT]:
-                self.rect.x -= self.speed
+            self.rect.x -= self.speed
+            self.surf = pygame.image.load("image/left.png").convert_alpha()  # image goes here in quotes
+            self.surf.set_colorkey((255, 255, 255), pygame.RLEACCEL)
         if keys[pygame.K_RIGHT]:
-                self.rect.x += self.speed
+            self.rect.x += self.speed
+            self.surf = pygame.image.load("image/right.png").convert_alpha()  # image goes here in quotes
+            self.surf.set_colorkey((255, 255, 255), pygame.RLEACCEL)
         if keys[pygame.K_UP]:
-                self.rect.y -= self.speed
+            self.rect.y -= self.speed
+            self.surf = pygame.image.load("image/up.png").convert_alpha()  # image goes here in quotes
+            self.surf.set_colorkey((255, 255, 255), pygame.RLEACCEL)
         if keys[pygame.K_DOWN]:
-                self.rect.y += self.speed
+            self.rect.y += self.speed
+            self.surf = pygame.image.load("image/downward.png").convert_alpha()  # image goes here in quotes
+            self.surf.set_colorkey((255, 255, 255), pygame.RLEACCEL)
 
             # Border collision
         self.rect.left = max(0, self.rect.left)
