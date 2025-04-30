@@ -31,7 +31,7 @@ class Game:
         pygame.display.update()
         self.player = Character(self.size)
         self.good_npc = pygame.sprite.Group()  # Create the group first
-        self.spawn_npc(5)
+        self.spawn_npc(3)
         self.bad_npc = Bad_NPC(self.size)
         self.text_shown_time = None  # To track when the text was shown
         self.text_displayed = False
@@ -81,10 +81,10 @@ class Game:
             #this line draws the hitbox for the door to make it easier to place
             pygame.draw.rect(self.game_display, (255, 0, 0), self.door.rect, 2)
 
-            if self.current_room == 1 and self.player.rect.colliderect(self.door.rect):
-                self.current_room = 2
+            if self.player.rect.colliderect(self.door.rect):
+                self.current_room += 1
                 self.load_room_background()
-                self.player.rect.topleft = (50, 50)
+                self.player.rect.topleft = (260, 440)
 
             pygame.display.update()
             self.clock.tick(24)
@@ -95,6 +95,7 @@ class Game:
             npc.rect.topleft = (
                 random.randint(0, self.size[0] - npc.rect.width),
                 random.randint(0, self.size[1] - npc.rect.height))
+            self.good_npc.add(npc)
 
     def load_room_background(self):
         if self.current_room == 1:
