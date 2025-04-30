@@ -15,6 +15,7 @@ import pygame
 from Npc import Good_NPC, Bad_NPC
 from character import Character
 import random
+from door import Door
 
 class Game:
     def __init__(self):
@@ -34,7 +35,9 @@ class Game:
         self.bad_npc = Bad_NPC(self.size)
         self.text_shown_time = None  # To track when the text was shown
         self.text_displayed = False
-
+        self.door = Door((290, 90), (20, 20)) #location and size of the door hitbox
+        self.current_room = 1
+        self.load_room_background()
 
 
 
@@ -51,6 +54,7 @@ class Game:
 
             self.game_display.blit(self.bg_image, (0, 0))
             self.game_display.blit(self.player.surf, self.player.rect)
+
 
             for npc in self.good_npc:
                 self.game_display.blit(npc.surf, npc.rect)
@@ -74,6 +78,14 @@ class Game:
                 if pygame.time.get_ticks() - self.text_shown_time > 3000:  # 3000 milliseconds = 3 seconds
                     self.text_displayed = False
 
+            #this line draws the hitbox for the door to make it easier to place
+            pygame.draw.rect(self.game_display, (255, 0, 0), self.door.rect, 2)
+
+            if self.current_room == 1 and self.player.rect.colliderect(self.door.rect):
+                self.current_room = 2
+                self.load_room_background()
+                self.player.rect.topleft = (50, 50)
+
             pygame.display.update()
             self.clock.tick(24)
 
@@ -82,9 +94,14 @@ class Game:
             npc = Good_NPC(self.size)
             npc.rect.topleft = (
                 random.randint(0, self.size[0] - npc.rect.width),
-                random.randint(0, self.size[1] - npc.rect.height)
-            )
-            self.good_npc.add(npc)
+                random.randint(0, self.size[1] - npc.rect.height))
+
+    def load_room_background(self):
+        if self.current_room == 1:
+            self.bg_image = pygame.image.load('image/resized_image_600x600.png')
+        elif self.current_room == 2:
+            self.bg_image = pygame.image.load('image/crc.png')
+
 
 
 def main():
