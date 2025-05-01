@@ -54,7 +54,8 @@ class MyTkinterApp:
         txt = self.myTextBox1.get()                 # Retrieves the text entered by the user                             # increments each time the handler is called (button is pressed)
         message = ("\nHey,{0}!\n\nIn this game you lost your sheep in a cave.\n\nYour goal is to collect them and get"
                    " out.\n\nYou may find things that are out"
-                   " to kill you.\n\nIf you see anything thats not a sheep it's best to run.\n\nGood luck!\n").format(txt)
+                   " to kill you.\n\nIf you see anything thats not a sheep it's best to run.\n\nUse the arrow keys to"
+                   " move and Good luck!\n").format(txt)
         self.myTextLabel2Text.set(message)
         if self.myButton2 == None:
             self.create_button2("Start Game")

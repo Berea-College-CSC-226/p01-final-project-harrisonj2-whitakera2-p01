@@ -78,23 +78,29 @@ Indicate what percentage of the project you have left to complete and how confid
 
 ## Milestone 4: Final Code, Presentation, Demo
 
-### ❗User Instructions
+### User Instructions
 
 In a paragraph, explain how to use your program. Assume the user is starting just after they hit the "Run" button 
 in PyCharm. 
 
-### ❗Errors and Constraints
+    The user is asked to type their name into a textbox and then puches two buttons to start the game. The user then
+    needs to use the arrow keys to move around, catch sheep by running into them and go between rooms by walking through 
+    doors
+
+### Errors and Constraints
 
 Every program has bugs or features that had to be scrapped for time. These bugs should be tracked in the issue queue. 
 You should already have a few items in here from the prior weeks. Create a new issue for any undocumented errors and 
 deficiencies that remain in your code. Bugs found that aren't acknowledged in the queue will be penalized.
 
-### ❗Peer Evaluation
+### Peer Evaluation
 
 It is important that all members of your team contribute equitably. The peer evaluation is your chance to either 
 a) celebrate the great work you all did together as an effective team, or b) indicate to the instructor if a member of
 your team did not contribute their fair share. Grades will be adjusted for any team member who is evaluated poorly. Your
 commit history will be used as evidence, so make sure you are using git effectively!
+
+    Both members worked to ensure the code was completed
 
 ### ❗Reflection
 
@@ -107,7 +113,22 @@ Each partner should write three to four well-written paragraphs address the foll
 - How well did you work with your partner? What made it go well? What made it challenging?
 
 ```
-    Partner 1: **Replace this text with your reflection
+    Partner 1 (Aaron): We decided to make a video game because we both enjoy playing them and we figured we could use
+    what we learned in class to help with the coding.
+    
+    Our initial design was not fully thought out so we figured out specifics as we went. the general idea of using pygame 
+    with multiple rooms and running into npcs stayed the same.
+    
+    We learned a lot about managing a larger code and using different classes to act as blueprints for different objects.
+    We also learned a lot about debugging and how to use python script to learn different mechanics and commands
+    
+    The hardest part was that we chose an ambicious project that we only got finished the night before the final.
+    
+    Knowing what we do now we would start coding knowing exactly what we wanted to avoind rewriting a bunch of code.
+    
+    I worked well with my partener. We met up in person a lot which helped to know what we are working on next. It also
+    helped to solve problems that we ran into coding on our own. What was challenging working with my partener is that
+    we had gaps in our knowledge where neither one of us knew what was wrong in a couple different situations.
 ```
 
 ```
