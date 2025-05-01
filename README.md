@@ -100,6 +100,10 @@ Every program has bugs or features that had to be scrapped for time. These bugs 
 You should already have a few items in here from the prior weeks. Create a new issue for any undocumented errors and 
 deficiencies that remain in your code. Bugs found that aren't acknowledged in the queue will be penalized.
 
+    Start game file doesnt work because it doesnt close the game properly
+
+    Hit boxes are not centered 
+    
     No orginal code was put in the readme due to lack of how to do it and being confused 
     
     Lack of organization and CRC cards
