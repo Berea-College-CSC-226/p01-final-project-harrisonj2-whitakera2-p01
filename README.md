@@ -102,6 +102,8 @@ deficiencies that remain in your code. Bugs found that aren't acknowledged in th
 
     Lack of organization and CRC cards
 
+    GUI does not close game properly and does not disappear once you start the game
+
     Game wouldnt run becuase game.run was not called in main
 
     Doors code The game's door functionality is responsible for transitioning between rooms
