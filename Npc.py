@@ -25,7 +25,7 @@ class NPC(pygame.sprite.Sprite):
         print("NPC spawing")
         self.screen_size = screen_size
         super().__init__()
-        self.surf = pygame.image.load('image/lamb_resized_2_3.png').convert_alpha()
+        self.surf = pygame.image.load('image/lamb.png').convert_alpha()
         self.surf.set_colorkey((255, 255, 255), pygame.RLEACCEL)
         self.rect = self.surf.get_rect()
         self.rect.move_ip(self.screen_size[0] // 4, self.screen_size[1] // 4)
