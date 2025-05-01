@@ -148,7 +148,7 @@ class Game:
             self.doors.add(Door((550, 90), (20, 20), 6))
 
         elif self.current_room == 4:
-            self.bg_image = pygame.image.load('image/Monster_Zone.png')
+            self.bg_image = pygame.image.load('image/Scary_Zone.png')
             self.doors.add(Door((290, 540), (20, 20), 2))
 
 
@@ -169,7 +169,7 @@ class Game:
 
 
         elif self.current_room == 7:
-            self.bg_image = pygame.image.load('image/Exit.png')
+            self.bg_image = pygame.image.load('image/Exit_1.png')
             self.spawn_npc(30)
             self.passed_game = True
 
