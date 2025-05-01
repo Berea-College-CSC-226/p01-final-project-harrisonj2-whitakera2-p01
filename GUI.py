@@ -20,8 +20,8 @@ class MyTkinterApp:
         :param windowtext: The text at the top of the window title
         """
         self.root = tk.Tk()                         # Create the root window where all widgets go
-        self.root.minsize(width=250, height=300)    # Sets the window's minimum size
-        self.root.maxsize(width=250, height=300)    # Sets the window's maximum size
+        self.root.minsize(width=300, height=330)    # Sets the window's minimum size
+        self.root.maxsize(width=300, height=330)    # Sets the window's maximum size
         self.root.title(windowtext)                 # Sets root window title
 
         self.myButton1 = None
@@ -52,8 +52,9 @@ class MyTkinterApp:
         :return: None
         """
         txt = self.myTextBox1.get()                 # Retrieves the text entered by the user                             # increments each time the handler is called (button is pressed)
-        message = ("\nHey,{0}!\n\nIn this game you are stuck in a cave\nand your goal is to get out.\nYou may find things that are out"
-                   " to kill you\nbut as long as it's not anyhting\ntoo big you should be able to kill it.\n\nGood luck!\n").format(txt)
+        message = ("\nHey,{0}!\n\nIn this game you lost your sheep in a cave.\n\nYour goal is to collect them and get"
+                   " out.\n\nYou may find things that are out"
+                   " to kill you.\n\nIf you see anything thats not a sheep it's best to run.\n\nGood luck!\n").format(txt)
         self.myTextLabel2Text.set(message)
         if self.myButton2 == None:
             self.create_button2("Start Game")
@@ -99,7 +100,7 @@ class MyTkinterApp:
         self.myTextLabel1Text.set(labeltext)        # Sets the Tkinter string variable
         self.myTextLabel1 = tk.Label(self.root, textvariable=self.myTextLabel1Text)
         self.myTextLabel1.pack()                    # pack means add to window
-        message = "What is your name?"
+        message = "\nWhat is your name?"
         self.myTextLabel1Text.set(message)
 
     def create_label2(self, labeltext=""):
