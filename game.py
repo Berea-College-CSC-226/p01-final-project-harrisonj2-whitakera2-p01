@@ -24,11 +24,12 @@ class Game:
         self.screen_width = 600
         pygame.init()
         self.game_display = pygame.display.set_mode(self.size)
-        self.bg_image = pygame.image.load('image/resized_image_600x600.png')
+        self.bg_image = pygame.image.load('image/Level_1.png')
         self.clock = pygame.time.Clock()
         self.game_display.blit(self.bg_image, (0, 0))
         pygame.display.update()
         self.player = Character(self.size)
+        self.rooms_with_spawned_sheep = set()
         self.good_npc = pygame.sprite.Group()  # Create the group first
         self.bad_npc = Bad_NPC(self.size)
         self.text_shown_time = None  # To track when the text was shown
@@ -36,6 +37,16 @@ class Game:
         self.doors = pygame.sprite.Group()
         self.current_room = 1
         self.load_room_background()
+        self.passed_game = False
+        self.spawn_locations = {
+            1: (254, 294),
+            2: (246, 510),
+            3: (386, 508),
+            4: (258, 438),
+            5: (258, 426),
+            6: (228, 402),
+            7: (246, 510),
+        }
 
 
     def run(self):
@@ -44,6 +55,7 @@ class Game:
                 if event.type == pygame.QUIT:
                     self.running = False
             self.player.movement(pygame.key.get_pressed())
+
 
             for npc in self.good_npc:
                 npc.movement()
@@ -66,9 +78,21 @@ class Game:
             # Show the text for 3 seconds
             if self.text_displayed:
                 font = pygame.font.SysFont("ComicSans", 36)
-                txt = font.render('You have caught a lamb', True, "white")
+                txt = font.render("You have caught a lamb", True, "white")
                 text_rect = txt.get_rect(center=(self.size[0] // 2, self.size[1] // 2))
                 self.game_display.blit(txt, text_rect)
+
+                if pygame.time.get_ticks() - self.text_shown_time > 3000:
+                    self.text_displayed = False
+
+            # Show "You passed the game" at the top if in room 7
+            if self.passed_game:
+                font = pygame.font.SysFont("ComicSans", 40)
+                passed_text = font.render("YOU PASSED THE GAME", True, "white")
+                self.game_display.blit(passed_text, (self.size[0] // 2 - passed_text.get_width() // 2, 20))
+
+
+
 
                 # Check if 3 seconds have passed
                 if pygame.time.get_ticks() - self.text_shown_time > 3000:  # 3000 milliseconds = 3 seconds
@@ -80,10 +104,11 @@ class Game:
             # Check for collisions with any door
             for door in self.doors:
                 if self.player.rect.colliderect(door.rect):
-
                     self.current_room = door.destination_room
                     self.load_room_background()
-                    self.player.rect.topleft = (260, 440)
+
+                    self.player.rect.topleft = self.spawn_locations.get(self.current_room, (0, 0))
+
                     break
 
             pygame.display.update()
@@ -104,20 +129,50 @@ class Game:
 
         # Load room background and NPCs
         if self.current_room == 1:
-            self.bg_image = pygame.image.load('image/resized_image_600x600.png')
+            self.bg_image = pygame.image.load('image/Level_1.png')
             self.doors.add(Door((290, 90), (20, 20), 2))
-            self.spawn_npc(3)
+            if 1 not in self.rooms_with_spawned_sheep:
+                self.spawn_npc(1)
+                self.rooms_with_spawned_sheep.add(1)
 
         elif self.current_room == 2:
-            self.bg_image = pygame.image.load('image/crc.png')
-            self.doors.add(Door((10, 10), (20, 20), 1))
-            self.doors.add(Door((550, 10), (20, 20), 3))
-            self.spawn_npc(2)
+            self.bg_image = pygame.image.load('image/Level_2.png')
+            self.doors.add(Door((288, 358), (20, 20), 1))
+            self.doors.add(Door((476, 100), (20, 20), 3))
+            self.doors.add(Door((100, 94), (20, 20), 4))
 
         elif self.current_room == 3:
-            self.bg_image = pygame.image.load('image/Monster.png')
-            self.doors.add(Door((290, 500), (20, 20), 2))
-            self.spawn_npc(1)
+            self.bg_image = pygame.image.load('image/Level_3.png')
+            self.doors.add(Door((406, 402), (20, 20), 2))
+            self.doors.add(Door((182, 64), (20, 20), 5))
+            self.doors.add(Door((550, 90), (20, 20), 6))
+
+        elif self.current_room == 4:
+            self.bg_image = pygame.image.load('image/Scary_Zone.png')
+            self.doors.add(Door((290, 540), (20, 20), 2))
+
+
+        elif self.current_room == 5:
+            self.bg_image = pygame.image.load('image/Lamb_level.png')
+            self.doors.add(Door((290, 570), (20, 20), 3))
+            if 5 not in self.rooms_with_spawned_sheep:
+                self.spawn_npc(8)
+                self.rooms_with_spawned_sheep.add(5)
+
+        elif self.current_room == 6:
+            self.bg_image = pygame.image.load('image/Level_4.png')
+            self.doors.add(Door((252, 572), (20, 20), 3))
+            self.doors.add(Door((414, 60), (20, 20), 7))
+            if 6 not in self.rooms_with_spawned_sheep:
+                self.spawn_npc(3)
+                self.rooms_with_spawned_sheep.add(6)
+
+
+        elif self.current_room == 7:
+            self.bg_image = pygame.image.load('image/Exit_1.png')
+            self.spawn_npc(30)
+            self.passed_game = True
+
 
 
 def main():
