@@ -8,6 +8,17 @@
 # Acknowledgements:
 #
 # Dr.Scott Heggen
+# Chat GPT (for ai-art)
+# https://www.techwithtim.net/tutorials/game-development-with-python/pygame-tutorial/pygame-collision
+# https://stackoverflow.com/questions/58940202/how-do-i-create-a-hitbox-for-all-shapes-in-my-program-and-a-way-to-detect-collis
+# T11
+# Destine Harrison Williams
+# https://www.reddit.com/r/roguelikedev/comments/6d4ywl/im_having_trouble_with_adding_doors_to_my_python/
+# https://stackoverflow.com/questions/20839246/remove-object-after-collision
+# https://stackoverflow.com/questions/74379484/pygame-player-spawn
+# https://www.tutorialspoint.com/how-to-put-a-border-around-a-frame-in-python-tkinter
+# https://www.reddit.com/r/pygame/comments/1agfcld/creating_borders_for_a_game/
+# https://www.reddit.com/r/learnpython/comments/3p9s7f/how_to_put_a_border_in_python/
 ####################################################################################
 
 import pygame
@@ -30,14 +41,18 @@ class Game:
         pygame.display.update()
         self.player = Character(self.size)
         self.rooms_with_spawned_sheep = set()
-        self.good_npc = pygame.sprite.Group()  # Create the group first
+        self.good_npc = pygame.sprite.Group()
+        self.bad_npc = None # Create the group first
         self.bad_npc = Bad_NPC(self.size)
+        self.bad_npc_group = pygame.sprite.Group()
+        self.game_over = False
         self.text_shown_time = None  # To track when the text was shown
         self.text_displayed = False
         self.doors = pygame.sprite.Group()
         self.current_room = 1
         self.load_room_background()
         self.passed_game = False
+        self.lose_game_time = None
         self.spawn_locations = {
             1: (254, 294),
             2: (246, 510),
@@ -47,7 +62,6 @@ class Game:
             6: (228, 402),
             7: (246, 510),
         }
-
 
     def run(self):
         while self.running:
@@ -92,15 +106,37 @@ class Game:
                 self.game_display.blit(passed_text, (self.size[0] // 2 - passed_text.get_width() // 2, 20))
 
 
-
-
                 # Check if 3 seconds have passed
                 if pygame.time.get_ticks() - self.text_shown_time > 3000:  # 3000 milliseconds = 3 seconds
                     self.text_displayed = False
 
-            for door in self.doors:
-                pygame.draw.rect(self.game_display, (255, 0, 0), door.rect, 2)
+            if self.game_over:
+                self.game_display.fill((0, 0, 0))  # Fill screen black
+                font = pygame.font.SysFont("ComicSans", 60)
+                lose_text = font.render("YOU LOSE", True, "red")
+                text_rect = lose_text.get_rect(center=(self.size[0] // 2, self.size[1] // 2))
+                self.game_display.blit(lose_text, text_rect)
 
+                if self.lose_game_time is None:
+                    self.lose_game_time = pygame.time.get_ticks()
+
+                    # Check if 10 seconds have passed and close the game
+                if self.lose_game_time and pygame.time.get_ticks() - self.lose_game_time > 5000:  # 10 seconds
+                    self.running = False  # Close the game
+
+                pygame.display.update()
+                continue
+
+            for door in self.doors:
+                pygame.draw.rect(self.game_display, (0, 0, 0), door.rect, 2)
+
+            for bad_npc in self.bad_npc_group:
+                bad_npc.movement()
+                self.game_display.blit(bad_npc.surf, bad_npc.rect)
+
+                # Check collision with player
+                if self.player.rect.colliderect(bad_npc.rect):
+                    self.game_over = True
             # Check for collisions with any door
             for door in self.doors:
                 if self.player.rect.colliderect(door.rect):
@@ -122,6 +158,10 @@ class Game:
                 random.randint(0, self.size[1] - npc.rect.height))
             self.good_npc.add(npc)
 
+    def clear_bad_npc(self):
+        """Clears all Bad NPCs from the group."""
+        self.bad_npc_group.empty()
+
     def load_room_background(self):
 
         self.doors.empty()
@@ -141,15 +181,23 @@ class Game:
             self.doors.add(Door((476, 100), (20, 20), 3))
             self.doors.add(Door((100, 94), (20, 20), 4))
 
+            self.clear_bad_npc()
+
         elif self.current_room == 3:
             self.bg_image = pygame.image.load('image/Level_3.png')
             self.doors.add(Door((406, 402), (20, 20), 2))
             self.doors.add(Door((182, 64), (20, 20), 5))
             self.doors.add(Door((550, 90), (20, 20), 6))
 
+
         elif self.current_room == 4:
             self.bg_image = pygame.image.load('image/Scary_Zone.png')
             self.doors.add(Door((290, 540), (20, 20), 2))
+            if len(self.bad_npc_group) == 0:
+                bad_npc = Bad_NPC(self.size, speed=15)  # Adjustable speed
+                bad_npc.rect.midtop = (self.size[0] // 2, 0)
+                self.bad_npc_group.add(bad_npc)  # Add to the game
+
 
 
         elif self.current_room == 5:

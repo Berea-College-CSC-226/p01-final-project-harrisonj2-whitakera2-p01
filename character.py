@@ -7,7 +7,9 @@
 
 ######################################################################
 # Acknowledgements:
-#
+# T11
+# T12
+# Dr.Scott Heggen
 ####################################################################################
 import pygame
 
@@ -27,7 +29,7 @@ class Character(pygame.sprite.Sprite):
         self.rect.move_ip(self.screen_size[0]//2, self.screen_size[1]//2)
         self.screen_height = 600
         self.screen_width = 600
-        self.speed = 5.8
+        self.speed = 8
 
 
     def movement(self, keys):
